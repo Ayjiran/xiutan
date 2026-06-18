@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>幻隐嗅探</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>幻隐嗅探</h1>
+        </div>
+        <div class="tabs glass-panel">
+            <button class="tab-button active" data-tab="image">图片</button>
+            <button class="tab-button" data-tab="video">视频</button>
+            <button class="tab-button" data-tab="audio">音频</button>
+            <button class="tab-button" data-tab="other">其他</button>
+            <button class="tab-button" data-tab="source">源代码</button>
+            <button class="tab-button" data-tab="about">关于我们</button>
+        </div>
+        <!-- 主要内容区域 -->
+        <div id="main-content" class="glass-panel">
+            <!-- 激活面板 -->
+            <div id="activation-panel" style="display: none;">
+                <div class="activation-container">
+                    <h3>请输入激活码</h3>
+                    <div class="input-group">
+                        <input type="text" id="activation-code" placeholder="在此输入激活码">
+                        <button id="activate-btn">激活</button>
+                    </div>
+                    <div class="get-code-link">
+                        <a href="https://zy.ayjrw.cn/?mod=buy&tid=1337" target="_blank">获取激活码</a>
+                    </div>
+                </div>
+            </div>
+            <!-- 资源列表 -->
+            <div id="resource-list" class="resource-list" style="display: none;">
+                <!-- 资源将通过 JS 动态插入这里 -->
+            </div>
+            <!-- 源代码查看器 -->
+            <div id="source-viewer" class="content-viewer" style="display:none;">
+                <div class="action-buttons">
+                    <button id="copy-source-btn" class="action-btn source-btn">复制源代码</button>
+                    <button id="edit-mode-btn" class="action-btn edit-mode-btn">开启可视化编辑</button>
+                </div>
+                <pre id="source-code" class="source-code"></pre>
+            </div>
+            <!-- 关于我们面板 -->
+            <div id="about-panel" class="about-panel" style="display:none;">
+                <div class="about-info">
+                    <h4>功能介绍</h4>
+                    <p>✦ <strong>系统版本：</strong>1.0.0</p>
+                    <p>✦ <strong>智能嗅探：</strong>全自动智能嗅探网页中的图片、音视频等多种媒体资源。</p>
+                    <p>✦ <strong>源码查看：</strong>提供一键查看并复制网页源代码的功能。</p>
+                    <p>✦ <strong>可视化编辑：</strong>支持开启“可视化编辑”模式，让您像编辑文档一样直接修改网页内容。</p>
+                    
+                    <div class="about-footer">
+                        <p><strong>开发者：</strong>长春幻隐网络科技有限公司</p>
+                        <p><strong>官网：</strong><a href="https://www.ayjrw.cn" target="_blank">https://www.ayjrw.cn</a></p>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- 结束 main-content -->
+    </div> <!-- 结束 container -->
+    <script src="popup.js"></script>
+    <div id="image-preview-container" class="image-preview-container"></div>
+</body>
+</html>

@@ -1,0 +1,396 @@
+/* --- 全局未来主义风格 --- */
+:root {
+    --bg-color: #0d0c1d; /* 深邃星空背景 */
+    --panel-bg: rgba(28, 27, 45, 0.7); /* 半透明面板 */
+    --panel-border: rgba(108, 99, 255, 0.3); /* 紫色辉光边框 */
+    --text-primary: #e0e0e0; /* 主要文字 - 柔和白 */
+    --text-secondary: #a0a0c0; /* 次要文字 - 灰紫色 */
+    --accent-color: #00f5d4; /* 亮青色 - 强调色 */
+    --accent-hover: #9af4e8;
+    --glow-shadow: 0 0 15px rgba(108, 99, 255, 0.2), 0 0 5px rgba(108, 99, 255, 0.3);
+}
+
+body {
+    font-family: 'Segoe UI', 'Roboto', system-ui, -apple-system, sans-serif;
+    font-size: 14px;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    margin: 0;
+    width: 420px;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+}
+
+.container {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    height: 480px;
+    box-sizing: border-box;
+}
+
+/* --- 头部 --- */
+.header {
+    padding: 0 8px 16px;
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0;
+    color: #ffffff;
+    text-shadow: 0 0 8px var(--accent-color), 0 0 12px var(--panel-border);
+}
+
+/* --- 玻璃面板 & 标签页 --- */
+.glass-panel {
+    background: var(--panel-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 12px;
+    border: 1px solid var(--panel-border);
+    box-shadow: var(--glow-shadow);
+}
+
+.tabs {
+    display: flex;
+    align-items: center; /* 垂直居中按钮 */
+    height: 42px; /* 固定分类块高度 */
+    padding: 6px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    flex-shrink: 0; /* 防止被内容区域挤压 */
+}
+
+.tab-button {
+    background: transparent;
+    border: none;
+    padding: 8px 14px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--text-secondary);
+    border-radius: 8px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    margin: 2px;
+    flex-shrink: 0;
+    white-space: nowrap;
+    position: relative;
+}
+
+.tab-button::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+.tab-button:hover {
+    color: var(--text-primary);
+}
+
+.tab-button.active {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.tab-button.active::after {
+    width: 60%;
+}
+
+/* --- 主要内容区域 --- */
+#main-content {
+    flex-grow: 1;
+    padding: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 0; /* 关键: 防止 flex item 在内容过多时撑开父容器 */
+}
+
+/* --- 资源列表 --- */
+.resource-list {
+    flex-grow: 1; /* 关键: 占据所有剩余空间 */
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.resource-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border-radius: 8px;
+    transition: background-color 0.25s ease-out, transform 0.2s ease;
+    margin-bottom: 8px;
+    border-left: 3px solid transparent;
+    animation: fadeIn 0.5s ease forwards;
+    overflow: hidden; /* 配合内部元素滑动 */
+}
+
+.resource-item:hover {
+    background-color: rgba(108, 99, 255, 0.15);
+    transform: translateX(5px);
+    border-left-color: var(--accent-color);
+}
+
+.image-thumbnail {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    margin-right: 12px;
+    object-fit: cover;
+    background-color: rgba(0,0,0,0.3);
+    flex-shrink: 0;
+    border: 1px solid var(--panel-border);
+}
+
+.resource-url {
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow-x: auto; /* 改动: 允许水平滚动 */
+    color: var(--text-primary);
+    text-decoration: none;
+    line-height: 1.4;
+    scrollbar-width: thin; /* 优化滚动条样式 */
+    scrollbar-color: var(--accent-color) transparent;
+}
+/* 针对 Webkit 内核浏览器（Chrome, Safari）的滚动条样式 */
+.resource-url::-webkit-scrollbar {
+    height: 4px;
+}
+.resource-url::-webkit-scrollbar-thumb {
+    background-color: var(--accent-color);
+    border-radius: 2px;
+}
+
+
+.resource-actions {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    opacity: 0;
+    width: 0; /* 改动: 默认宽度为0 */
+    transition: opacity 0.25s ease, width 0.3s ease; /* 添加 width 过渡 */
+    overflow: hidden; /* 隐藏内部内容 */
+    margin-left: 0; /* 初始无左边距 */
+    white-space: nowrap; /* 强制按钮不换行 */
+}
+
+.resource-item:hover .resource-actions {
+    opacity: 1;
+    width: 115px; /* 悬停时展开到固定宽度，确保按钮不换行 */
+    margin-left: 12px; /* 悬停时添加左边距 */
+}
+
+.copy-btn, .preview-btn {
+    background: rgba(0, 245, 212, 0.1);
+    border: 1px solid var(--accent-color);
+    border-radius: 6px;
+    color: var(--accent-color);
+    cursor: pointer;
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.copy-btn:hover, .preview-btn:hover {
+    background: var(--accent-color);
+    color: var(--bg-color);
+    box-shadow: 0 0 10px var(--accent-color);
+}
+
+.copy-btn { margin-right: 8px; }
+
+/* --- 内容查看器（源代码和关于） --- */
+.content-viewer, .about-panel {
+    padding: 8px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* 确保父容器不会出现意外滚动条 */
+}
+
+.action-buttons {
+    margin-bottom: 12px;
+    display: flex;
+    gap: 12px;
+    flex-shrink: 0; /* 防止按钮被压缩 */
+}
+
+.action-btn {
+    flex-grow: 1;
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--panel-border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+    background: var(--panel-border);
+    color: #ffffff;
+    box-shadow: var(--glow-shadow);
+}
+
+.action-btn.source-btn {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+.action-btn.source-btn:hover {
+    background: var(--accent-color);
+    color: var(--bg-color);
+    box-shadow: 0 0 10px var(--accent-color);
+}
+
+.source-code {
+    flex-grow: 1; /* 占据所有剩余空间 */
+    background: rgba(0, 0, 0, 0.3);
+    color: #c0c0e0;
+    padding: 12px;
+    border-radius: 8px;
+    font-family: 'Fira Code', 'Consolas', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-break: break-all;
+    overflow-y: auto; /* 允许垂直滚动 */
+    border: 1px solid rgba(0,0,0,0.2);
+    min-height: 0; /* 配合 flex-grow，防止内容溢出时撑开父容器 */
+}
+
+/* --- 关于我们 --- */
+.about-panel { overflow-y: auto; }
+.about-info h3 { text-align: center; margin-bottom: 20px; color: #fff; text-shadow: 0 0 5px var(--accent-color); }
+.about-info h4 { margin-top: 20px; margin-bottom: 8px; border-bottom: 1px solid var(--panel-border); padding-bottom: 6px; color: var(--accent-color); }
+.about-info p { line-height: 1.7; color: var(--text-secondary); }
+.about-info p strong { color: var(--text-primary); }
+.about-footer { margin-top: 20px; padding-top: 12px; border-top: 1px solid var(--panel-border); font-size: 12px; }
+.about-footer p { margin: 4px 0; color: rgba(255, 255, 255, 0.6); }
+.about-footer a { color: var(--accent-color); text-decoration: none; font-weight: 500; }
+.about-footer a:hover { text-decoration: underline; color: var(--accent-hover); }
+
+/* --- 全局滚动条样式 --- */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+    background: rgba(108, 99, 255, 0.4);
+    border-radius: 4px;
+    border: 1px solid rgba(108, 99, 255, 0.2);
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(108, 99, 255, 0.6); }
+
+/* --- 大图预览 --- */
+.image-preview-container {
+    position: fixed;
+    padding: 8px;
+    background: var(--panel-bg);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 12px;
+    border: 1px solid var(--panel-border);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4), var(--glow-shadow);
+    max-width: 300px;
+    max-height: 300px;
+    z-index: 1000;
+    pointer-events: none; /* 忽略鼠标事件，防止遮挡 */
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    display: none; /* 默认不显示 */
+}
+
+.image-preview-container.visible {
+    display: block;
+    opacity: 1;
+    transform: scale(1);
+}
+
+.image-preview-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+/* --- 激活面板 --- */
+#activation-panel {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.activation-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.activation-container h3 {
+    font-size: 18px;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+}
+
+.input-group {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+#activation-code {
+    flex-grow: 1;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--panel-border);
+    border-radius: 6px 0 0 6px;
+    padding: 10px 12px;
+    color: var(--text-primary);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+#activation-code:focus {
+    border-color: var(--accent-color);
+}
+
+#activate-btn {
+    background: var(--accent-color);
+    border: 1px solid var(--accent-color);
+    color: var(--bg-color);
+    padding: 10px 20px;
+    border-radius: 0 6px 6px 0;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+#activate-btn:hover {
+    box-shadow: 0 0 12px var(--accent-color);
+}
+
+.get-code-link a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.3s ease;
+}
+
+.get-code-link a:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+}

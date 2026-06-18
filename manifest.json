@@ -1,0 +1,35 @@
+{
+    "manifest_version": 3,
+    "name": "幻隐资源嗅探",
+    "version": "1.0",
+    "description": "不止是资源嗅探！一键抓取网页图片、音视频，更提供源码查看、可视化编辑、图片预览等独家高级功能。开发者与设计师必备神器！",
+    "permissions": [
+        "storage",
+        "activeTab",
+        "scripting",
+        "webNavigation"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "content.js"
+            ],
+            "run_at": "document_start"
+        }
+    ],
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": "icons/icon.png"
+    },
+    "icons": {
+        "16": "icons/icon.png",
+        "48": "icons/icon.png",
+        "128": "icons/icon.png"
+    }
+}

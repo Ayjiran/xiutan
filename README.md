@@ -5,6 +5,8 @@
 **幻隐资源嗅探**是一款功能强大的Edge浏览器扩展，不仅提供基础的网页资源嗅探功能，还集成了源码查看、可视化编辑、图片预览等高级功能，是开发者、设计师和普通用户的必备神器。
 
 无论您需要下载网页中的图片、音视频资源，还是需要分析网页源代码，甚至想临时修改网页内容进行调试，这款扩展都能满足您的需求。
+<img width="1920" height="1080" alt="屏幕截图 2026-06-18 202851" src="https://github.com/user-attachments/assets/ceeedd2f-87f6-4dd1-b113-3174edabee5b" />
+<img width="1920" height="1080" alt="屏幕截图 2026-06-18 202838" src="https://github.com/user-attachments/assets/9a711f66-856e-4d5a-a4c9-8327ff2a4479" />
 
 ## ✨ 核心功能
 
